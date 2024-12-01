@@ -58,10 +58,10 @@ const parser = new MarkdownParser();
 // 3. replace the div with id="content" with the markdown content
 // 4. return the new html as a response
 
-const homepage = await Bun.file("./index.html");
+const homepage = await Bun.file("./src/index.html");
 const content = await homepage.text();
 
-const readme = await Bun.file("./article.md");
+const readme = await Bun.file("./content/article.md");
 const readmeContent = await readme.text();
 
 const newContent = content.replace("{content}", parser.parse(readmeContent));
@@ -84,7 +84,7 @@ Bun.serve({
     const url = new URL(req.url);
 
     if (url.pathname === "/style.css") {
-      return new Response(await Bun.file("./style.css").bytes(), {
+      return new Response(await Bun.file("./src/style.css").bytes(), {
         headers: {
           "Content-Type": "text/css",
         },
