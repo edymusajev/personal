@@ -87,15 +87,17 @@ function formatDate(dateString: string): string {
 const homepage = await Bun.file("./src/index.html");
 const content = await homepage.text();
 
-const readme = await Bun.file("./content/article.md");
-const readmeContent = await readme.text();
+const indexContent = await Bun.file("./content/index.md");
+const readmeContent = await indexContent.text();
 
 const parsedContent = parser.parse(readmeContent);
 
 const title = `<h1>${parsedContent.metadata.title}</h1>`;
-const date = `<time datetime="${parsedContent.metadata.date}">${formatDate(
-  parsedContent.metadata.date
-)}</time>`;
+const date = parsedContent.metadata.date
+  ? `<time datetime="${parsedContent.metadata.date}">${formatDate(
+      parsedContent.metadata.date
+    )}</time>`
+  : "";
 const allContent = `${title}\n${date}\n${parsedContent.html}`;
 
 const newContent = content
