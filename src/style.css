@@ -168,3 +168,9 @@ nav a {
 nav a:hover {
   color: #385575;
 }
+
+time {
+  margin: 2em 0 3em;
+  font-style: italic;
+  line-height: 1.6;
+}

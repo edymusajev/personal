@@ -37,21 +37,47 @@ class MarkdownParser {
   }
 
   parse(markdown: string) {
-    let html = markdown;
+    const metadataMatch = markdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    const [_, metaDataString, content] = metadataMatch ?? [];
+    let html = content.trim();
+
+    const metadataString = metaDataString;
+
+    const metadata = metadataString
+      ? Object.fromEntries(
+          metadataString?.split("\n").map((line) => line.split(":"))
+        )
+      : {};
+    console.log(metadata);
 
     for (const [regex, replacement] of this.rules) {
       html = html.replace(regex, replacement);
     }
 
-    // Clean up any adjacent lists of the same type
-    html = html.replace(/<\/ul>\s*<ul>/g, "");
-    html = html.replace(/<\/ol>\s*<ol>/g, "");
-
-    return html;
+    return {
+      html,
+      metadata,
+    };
   }
 }
 
 const parser = new MarkdownParser();
+
+function formatDate(dateString: string): string {
+  // Create a Date object from the input string
+  const date = new Date(dateString);
+
+  // Use Intl.DateTimeFormat for locale-aware formatting
+  // We specify 'en-US' for American English formatting
+  // The options object configures which parts of the date to show and how
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    month: "long", // "December" instead of "Dec" or "12"
+    day: "numeric", // "1" instead of "01"
+    year: "numeric", // "2024"
+  });
+
+  return formatter.format(date);
+}
 
 // 1. read the html file as text
 // 2. read the markdown file as text
@@ -64,8 +90,17 @@ const content = await homepage.text();
 const readme = await Bun.file("./content/article.md");
 const readmeContent = await readme.text();
 
-const newContent = content.replace("{content}", parser.parse(readmeContent));
-console.log(parser.parse(readmeContent));
+const parsedContent = parser.parse(readmeContent);
+
+const title = `<h1>${parsedContent.metadata.title}</h1>`;
+const date = `<time datetime="${parsedContent.metadata.date}">${formatDate(
+  parsedContent.metadata.date
+)}</time>`;
+const allContent = `${title}\n${date}\n${parsedContent.html}`;
+
+const newContent = content
+  .replace("{content}", allContent)
+  .replace("{title}", `${parsedContent.metadata.title}`);
 
 Bun.serve({
   static: {
