@@ -169,6 +169,14 @@ nav a:hover {
   color: #385575;
 }
 
+footer {
+  margin-top: 5em;
+  padding: 2em 0;
+  border-top: 1px solid #e0e0e0;
+  color: #666;
+  font-size: 0.9em;
+}
+
 time {
   margin: 2em 0 3em;
   font-style: italic;
