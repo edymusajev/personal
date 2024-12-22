@@ -58,7 +58,6 @@ class MarkdownParser {
           metadataString?.split("\n").map((line) => line.split(":"))
         )
       : {};
-    console.log(metadata);
 
     for (const [regex, replacement] of this.rules) {
       html = html.replace(regex, replacement);
@@ -116,7 +115,7 @@ async function getBlogPosts() {
   for await (const file of glob.scan(".")) {
     posts.push(file.replace("./content", "").replace(".md", ""));
   }
-  console.log(posts);
+
   return posts;
 }
 
@@ -126,7 +125,7 @@ function createBlogPostLinks(posts: string[]) {
 }
 getBlogPosts();
 
-Bun.serve({
+const server = Bun.serve({
   async fetch(req, server) {
     const url = new URL(req.url);
 
@@ -141,7 +140,7 @@ Bun.serve({
     if (url.pathname === "/blog") {
       const posts = await getBlogPosts();
       const blogPostLinks = createBlogPostLinks(posts);
-      console.log(blogPostLinks);
+
       const blogContent = `<ul>${blogPostLinks.join("")}</ul>`;
       const content = htmlTemplateContent.replace("{content}", blogContent);
       return new Response(content, {
@@ -186,3 +185,5 @@ Bun.serve({
     });
   },
 });
+
+console.log(`Server is running on ${server.url}`);
