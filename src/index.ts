@@ -77,10 +77,6 @@ function formatDate(dateString: string): string {
   // Create a Date object from the input string
   const date = new Date(dateString);
 
-  // Use Intl.DateTimeFormat for locale-aware formatting
-  // We specify 'en-US' for American English formatting
-  // The options object configures which parts of the date to show and how
-  // TODO: maybe overengineered?
   const formatter = new Intl.DateTimeFormat("en-US", {
     month: "long", // "December" instead of "Dec" or "12"
     day: "numeric", // "1" instead of "01"
@@ -100,16 +96,6 @@ const htmlTemplateContent = await htmlTemplate.text();
 
 const indexContent = await Bun.file("./content/index.md");
 const readmeContent = await indexContent.text();
-
-const parsedContent = parser.parse(readmeContent);
-
-const title = `<h1>${parsedContent.metadata.title}</h1>`;
-const date = parsedContent.metadata.date
-  ? `<time datetime="${parsedContent.metadata.date}">${formatDate(
-      parsedContent.metadata.date
-    )}</time>`
-  : "";
-const allContent = `${title}\n${date}\n${parsedContent.html}`;
 
 async function getContentForPath(path: string): Promise<string> {
   // Remove trailing slash and handle root path
@@ -141,18 +127,6 @@ function createBlogPostLinks(posts: string[]) {
 getBlogPosts();
 
 Bun.serve({
-  // static: {
-  //   "/": new Response(newContent, {
-  //     headers: {
-  //       "Content-Type": "text/html",
-  //     },
-  //   }),
-  //   // "/style.css": new Response(await Bun.file("./style.css").bytes(), {
-  //   //   headers: {
-  //   //     "Content-Type": "text/css",
-  //   //   },
-  //   // }),
-  // },
   async fetch(req, server) {
     const url = new URL(req.url);
 
