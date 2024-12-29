@@ -1,8 +1,3 @@
-// TODO: create separate package to bundle the content
-// 1. read and parse all files
-// 2. create html files in /dist
-// 3. create npm script to bundle the content
-// 4. serve these dist files from server as static files
 // TODO: use static bun serve
 // TODO: document and compare the performance of this app vs nextjs
 
@@ -14,13 +9,14 @@ const server = Bun.serve({
     const contentType = path.endsWith(".css") ? "text/css" : "text/html";
 
     let file = Bun.file(join("./dist", path));
+    // this runs if the file exists directly, e.g. /index.html or /style.css
     if (await file.exists())
       return new Response(file, {
         headers: {
           "Content-Type": contentType,
         },
       });
-    console.log(path);
+    // this runs if the file does not exist directly, e.g. /blog/index.html
     return new Response(Bun.file(join("./dist", path + "/index.html")), {
       headers: {
         "Content-Type": "text/html",
@@ -37,4 +33,6 @@ const server = Bun.serve({
   },
 });
 
-console.log(`Server is running on ${server.url}`);
+console.log(
+  `${new Date().toLocaleString()}\nServer is running on ${server.url}`
+);
