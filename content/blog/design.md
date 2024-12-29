@@ -1,7 +1,4 @@
----
-title: The Design of Everyday Things
-date: 2024-12-17
----
+# The Design of Everyday Things
 
 Poor design makes it difficult and frustrating to use a product. It's confusing, cannot be understood and leads to errors.
 

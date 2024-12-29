@@ -1,7 +1,4 @@
----
-title: Simplicty
-date: 2024-12-04
----
+# Simplicity
 
 At the beginning of my software career I was mesmerized by complexity. My understanding was that the more complex something is the better it must be
 

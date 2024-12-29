@@ -1,7 +1,4 @@
----
-title: Unfolding Christopher Alexander's Vision of Natural Growth in Design and Life
-date: 2024-12-01
----
+# Unfolding Christopher Alexander's Vision of Natural Growth in Design and Life
 
 Christopher Alexander's concept of "unfolding" stands as one of the most profound insights into how natural systems develop, evolve, and come to life. At its core, unfolding describes the way complex structures emerge gradually through a series of small, wholesome transformations—much like a flower opens its petals or an embryo develops into a fully formed being.
 
