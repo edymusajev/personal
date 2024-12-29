@@ -102,19 +102,6 @@ hr {
   margin: 2em 0;
 }
 
-/* Responsive adjustments that maintain proportions */
-@media (max-width: 600px) {
-  body {
-    padding: 1em;
-    font-size: 1.1em;
-  }
-
-  blockquote {
-    margin: 1.5em 0;
-    padding: 0 1em;
-  }
-}
-
 /* Tables with minimal borders */
 table {
   width: 100%;
@@ -177,8 +164,45 @@ footer {
   font-size: 0.9em;
 }
 
-time {
-  margin: 2em 0 3em;
-  font-style: italic;
-  line-height: 1.6;
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: #f5f5f5;
+  }
+
+  a {
+    color: #8fb3d9;
+  }
+
+  blockquote {
+    color: #aaa;
+  }
+
+  code {
+    background: #2a2a2a;
+  }
+
+  pre {
+    background: #2a2a2a;
+  }
+
+  hr,
+  th,
+  td,
+  nav {
+    border-color: #404040;
+  }
+  nav a {
+    color: #e0e0e0;
+  }
+
+  nav a:hover {
+    color: #8fb3d9;
+  }
 }
