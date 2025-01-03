@@ -10,11 +10,6 @@ body {
   color: #2a2a2a;
 }
 
-/* Gentle rhythm for vertical spacing */
-* + * {
-  margin-top: 1.5em;
-}
-
 /* Clear, readable typography */
 h1,
 h2,
@@ -129,31 +124,51 @@ nav {
   border-bottom: 1px solid #e0e0e0;
   padding: 1.5em 0;
   margin-bottom: 3em;
-}
 
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  column-gap: 2em;
-}
 
-nav li {
-  margin: 0;
-}
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 
-nav a {
-  color: #2a2a2a;
-  text-decoration: none;
-  border: none;
-  font-size: 0.95em;
-  letter-spacing: 0.02em;
-}
+    .icon-link {
+      border-bottom: none;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 
-nav a:hover {
-  color: #385575;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    column-gap: 2em;
+
+    li {
+      margin: 0;
+    }
+  }
+
+  a {
+    color: #2a2a2a;
+    text-decoration: none;
+    border: none;
+    font-size: 0.95em;
+    letter-spacing: 0.02em;
+  }
+
+  a:hover {
+    color: #385575;
+  }
 }
 
 footer {
